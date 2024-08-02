@@ -26,7 +26,7 @@ The performance of the SD-DPE approach is influenced by three key factors:
   Demonstrates the impact of measurement uncertainty from the base station on positioning precision.  
 
 ## Notes
-We also implemented the SD-DPE with the real-world over-the_air signal. Due to acknowledgement, the generated data and algorithm are not included in this repository. please refer to the following paper or contact tang.shu@northeatern.edu.
+We also implemented the SD-DPE with the real-world over-the_air signal. Due to acknowledgement, the generated data and algorithm are not included in this repository. please refer to the following paper or contact tang.shu@northeatern.edu.  
 	```
      Liu, X., Ribot, M.Á., Gusi-Amigó, A., Closas, P., Garcia, A.R. and Subirana, J.S.,
 	 2020, September. RTK feasibility analysis for GNSS snapshot positioning. In Proceedings of the 33rd International Technical Meeting of the Satellite Division of The Institute of Navigation (ION GNSS+ 2020) (pp. 2911-2921).
