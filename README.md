@@ -19,8 +19,7 @@ Our initial and "naive" assumption is that traditional positioning techniques de
   This folder contains the *Precise DPE* (PDPE) approach, which incorporates carrier phase information into the signal model for enhanced positioning accuracy.
 
 - **`robust_interference_mitigation`**:  
-  This folder includes the *Robust DPE* approach, which utilizes Zero Memory Non-Linearity (ZMNL) filters, such as estimation based on Huber's loss, to improve interference tolerance.
-  
+  This folder includes the *Robust DPE* approach, which utilizes Zero Memory Non-Linearity (ZMNL) filters, such as estimation based on Huber's loss, to improve interference tolerance.  
   For more details or to cite this work, refer to the paper:  
      ```
      Li, H., Tang, S., Wu, P. and Closas, P.,
