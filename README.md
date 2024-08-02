@@ -17,6 +17,12 @@ Our initial and "naive" assumption is that traditional positioning techniques de
 
 - **`precise_DPE`**:  
   This folder contains the *Precise DPE* (PDPE) approach, which incorporates carrier phase information into the signal model for enhanced positioning accuracy.
+  For more details or to cite this work, refer to the paper:  
+     ```
+     Tang, S., Li, H., Calatrava, H. and Closas, P.,
+     2023, April. Precise direct position estimation: Validation experiments. In 2023 IEEE/ION Position, Location and Navigation Symposium (PLANS) (pp. 911-916). IEEE.
+     ```
+     [INO PLANS 2023: https://ieeexplore.ieee.org/abstract/document/10140046](https://ieeexplore.ieee.org/abstract/document/10140046)
 
 - **`robust_interference_mitigation`**:  
   This folder includes the *Robust DPE* approach, which utilizes Zero Memory Non-Linearity (ZMNL) filters, such as estimation based on Huber's loss, to improve interference tolerance.  
