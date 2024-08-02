@@ -1,0 +1,32 @@
+function [outputArg1,outputArg2] = filtcaCode(config)
+
+eval(config)
+%% number of samples calculation
+NsamplesLocal=CodePeriod*fs*CoherentIntegrations;   % Number of samples of the Local Replica
+NsamplesData=CodePeriod*fs*CoherentIntegrations*NonCoherentIntegrations;    %Number of samples of the Received Signal (Data).
+%% setting for filter
+fn=2e6;
+order=36;
+wn=pi*fn/(pi*fs/2);
+h=fir1(order,wn);
+%% memory set
+caCode = zeros(numSV,NsamplesData);
+caCode_filt = zeros(numSV,NsamplesData);
+x_delay = zeros(numSV,NsamplesData);
+s = zeros(numSV,NsamplesData);
+PrevNCOIndex = -FracDelay/Tc;
+%% generate CAcode
+for kSV = 1:numSV
+    Code = genCAcode(SatPRN(kSV));
+    ii = 1 : NsamplesData;
+    %% generate C/A code, Doppler and carrier phase
+    caCode(kSV,:) = Code((1 + mod(round((ii - 1)/fs/Tchip), CodeLen)));
+    %% filter and normalize SV signals before storing
+    x_delay2(kSV,:)  = filtfilt(h,1,x_delay1(kSV,:));
+    x_delay(kSV,:) = x_delay2(kSV,:)*sqrt((NsamplesData/sum(abs(x_delay2(kSV,:)).^2)));
+    %% filter and normalize s(t) for ZZB computation
+    s(kSV,:) = Code((1 + mod(round(PrevNCOIndex(kSV)+(ii - 1)/fs/Tchip), CodeLen)));
+    s(kSV,:) = filtfilt(h,1,s(kSV,:));
+    s(kSV,:) = s(kSV,:)*sqrt((NsamplesData/sum(s(kSV,:).^2)));
+end
+
