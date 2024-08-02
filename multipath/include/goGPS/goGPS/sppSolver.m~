@@ -1,0 +1,97 @@
+%% 
+
+[constellations] = goGNSS.initConstellation(1,0,0,0,0,0);
+nSatTot = constellations.nEnabledSat;
+n_sys = 1; % only GPS 
+
+% [C1C, L1C, ~, ~, DOP, ~, SNR, ~, time_GPS, time_R, week_R, date_R, pos_R, interval, ~, ~, ~] = load_RINEX_obs('/data/workspace/applications/mte-isis/MSRO03_GNSS_RAW.15o', constellations);
+% [Eph, iono] = load_RINEX_nav('brdc0760.15n', constellations, 0);
+
+% [C1C, L1C, ~, ~, DOP, ~, SNR, ~, time_GPS, time_R, week_R, date_R, pos_R, interval, ~, ~, ~] = load_RINEX_obs('MSR30760.15O', constellations);
+% [Eph, iono] = load_RINEX_nav('brdc0760.15n', constellations, 0);
+
+ [C1C, L1C, ~, ~, DOP, ~, SNR, ~, time_GPS, time_R, week_R, date_R, pos_R, interval, ~, ~, ~] = load_RINEX_obs('GNSS_Mittschiff_RAW.14o', constellations);
+ [Eph, iono] = load_RINEX_nav('brdc0840.14n', constellations, 0);
+
+% SP3 = load_SP3('igs', time_GPS, week_R, constellations);
+
+nEpochs = length(time_R);        
+
+[phiR, lamR, hR] = cart2geod(pos_R(1), pos_R(2), pos_R(3));
+phiR = phiR * 180 / pi;
+lamR = lamR * 180 / pi;
+
+
+%% 
+
+dtR = zeros(nEpochs,1);      % receiver clock error
+dtRdot = zeros(nEpochs-1,1); % receiver clock drift    
+
+min_nsat_LS = 3 + n_sys;
+
+for i = 1 : nEpochs
+    
+    sat0 = find(C1C(:,i) ~= 0);
+
+    Eph_t = rt_find_eph (Eph, time_GPS(i), nSatTot);
+    [XS, dtS, XS_tx, VS_tx, time_tx, no_eph, sys] = satellite_positions(time_GPS(i), C1C(sat0,i), sat0, Eph_t, [], [], zeros(nSatTot,1), zeros(nSatTot,1), 0);
+       
+    [az, el, dist] = topocent(pos_R, XS);
+    err_tropo = tropo_error_correction(el,hR*ones(length(el),1));
+    err_iono  = iono_error_correction(phiR, lamR, az, el, time_GPS(i), iono, []);
+     
+    index = find(no_eph == 0);
+    
+    sat  = sat0(index);
+    c1cA = C1C(sat0,i);
+    c1c  = c1cA(index);
+    % snr  = snr(index);
+    el   = el(index);
+    az   = az(index);
+    dist = dist(index);
+    XS   = XS(index,:);
+    dtS  = dtS(index);
+    sys  = sys(index);
+    nsat = size(c1c,1);
+    err_tropo = err_tropo(index);
+    err_iono = err_iono(index);
+    
+    n = length(index);
+    
+    if (length(sat0) >= min_nsat_LS)
+ 
+        for ii=0:1:5
+            XR_mat = pos_R(:,ones(n,1))';
+            distR_approx = sqrt(sum((XS-XR_mat).^2 ,2));
+    
+            A = [(pos_R(1) - XS(:,1)) ./ distR_approx, (pos_R(2) - XS(:,2)) ./ distR_approx, (pos_R(3) - XS(:,3)) ./ distR_approx, ones(n,1)];
+            b = distR_approx - goGNSS.V_LIGHT*dtS + err_tropo + err_iono;
+            y0 = c1c;
+
+            N = (A'*A);            
+            if cond(N) > 4
+                x = (N^-1)*A'*(y0-b);
+                y_hat = A*x + b;
+                v_hat = y0 - y_hat;
+                pos_R  = pos_R + x(1:3);
+                dtR = x(4) / goGNSS.V_LIGHT;              
+            end
+        end
+    
+        XR(i,1:3) = pos_R';
+    end
+    
+end
+
+%% 
+for j = 1 : length(XR)
+    [PHI(j), LAM(j), H(j)] = cart2geod(XR(j,1), XR(j,2), XR(j,3));
+    [EAST(j), NORTH(j), ~, ~] = cart2plan(XR(j,1), XR(j,2), XR(j,3));
+end
+
+PHI = PHI * 180 / pi;
+LAM = LAM * 180 / pi;
+
+figure(1), plot(detrend(EAST),detrend(NORTH),'+')
+
+% figure(2), plot(sqrt(detrend(NORTH).^2 + detrend(NORTH).^2))
