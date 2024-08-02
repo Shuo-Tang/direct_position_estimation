@@ -10,4 +10,5 @@ This project is divided into two parts:
   Contains experiments for PDPE using practical over-the-air signals. The satellite information is obtained using traditional methods via GNSS-SDR.  
   <img src="figs/real_world_pdpe.png" alt="Positioning Performance" width="600"/>
 
-**Note**: In the code, comments, and figures, you may encounter terms like *DPE with C* or *DPE with Carrier Phase*. These terms refer to the proposed PDPE algorithm.
+**Note**: 
+	--	In the code, comments, and figures, you may encounter terms like *DPE with C* or *DPE with Carrier Phase*. These terms refer to the proposed PDPE algorithm.
