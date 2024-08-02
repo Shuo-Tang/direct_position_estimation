@@ -7,7 +7,7 @@ Our initial and "naive" assumption is that traditional positioning techniques de
 ## Project Folders
 
 - **`standard_DPE`**: 
-  This folder is for the existing *standard* DPE approach, first proposed by Prof. Pau Closas.\n
+  This folder is for the existing *standard* DPE approach, first proposed by Prof. Pau Closas.\\
   For more details or to cite this work, refer to the paper:  
      ```
      Closas, P. and Gusi-Amigo, A.,
