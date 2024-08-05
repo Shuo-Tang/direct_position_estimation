@@ -1,5 +1,10 @@
 For more details or to cite this work, refer to the paper:  
 ```
+Li, H., Tang, S., Wu, P. and Closas, P.,
+     2023. Robust interference mitigation techniques for direct position estimation. IEEE Transactions on Aerospace and Electronic Systems.
+     ```
+     [IEEE TAES 2023: hhttps://ieeexplore.ieee.org/abstract/document/10242000](https://ieeexplore.ieee.org/abstract/document/10242000)
+
 Closas, P. and Gusi-Amigo, A.,
 2017. Direct position estimation of GNSS receivers: Analyzing main results, architectures, enhancements, and challenges. IEEE Signal Processing Magazine, 34(5), pp.72-84.  
 ```  
