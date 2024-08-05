@@ -1,7 +1,7 @@
 For more details or to cite this work, refer to the paper:  
 ```
 Li, H., Tang, S., Wu, P. and Closas, P.,
-     2023. Robust interference mitigation techniques for direct position estimation. IEEE Transactions on Aerospace and Electronic Systems.
+2023. Robust interference mitigation techniques for direct position estimation. IEEE Transactions on Aerospace and Electronic Systems.
 ```  
 [IEEE TAES 2023: hhttps://ieeexplore.ieee.org/abstract/document/10242000](https://ieeexplore.ieee.org/abstract/document/10242000)
 
