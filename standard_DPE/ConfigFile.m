@@ -31,7 +31,7 @@ UserPosition=[3.915394273911475e+06 2.939638207807819e+05 5.009529661006817e+06]
 % Set C/N0 (dB Hz) of each SV signal
 CNosim = 30:1:50;
 % Number of experiments for each simulated C/N0
-Nexpe = 100;
+Nexpe = 200;
 % Simulate MLE flag
 simulate_mle = 1;
 % Plot bound flag

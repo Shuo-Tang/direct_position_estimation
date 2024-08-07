@@ -78,17 +78,17 @@ if simulate_mle || compute_zzb
     figure,
     if simulate_mle && compute_zzb
         h=semilogy(CNosim,RMSE_LS,'b-.',CNosim,RMSE_DPE,'b',CNosim,fZZLB_2SP,'r-.',CNosim,fZZLB_DPE,'r');
-        legend('MLE 2SP','MLE DPE','ZZB 2SP','ZZB DPE')
+        legend('MLE 2SP','MLE DPE','ZZB 2SP','ZZB DPE', fontsize=16)
         grid
         set(h,'Linewidth',2)
     elseif simulate_mle
         h=semilogy(CNosim,RMSE_LS,'b-.',CNosim,RMSE_DPE,'b');
-        legend('MLE 2SP','MLE DPE')
+        legend('MLE 2SP','MLE DPE', fontsize=16)
         grid
         set(h,'Linewidth',2)
     else
         h=semilogy(CNosim,fZZLB_2SP,'r-.',CNosim,fZZLB_DPE,'r');
-        legend('ZZB 2SP','ZZB DPE')
+        legend('ZZB 2SP','ZZB DPE', fontsize=16)
         grid
         set(h,'Linewidth',2)
     end
@@ -100,7 +100,7 @@ end
 if plot_estimated_cn0
     figure
     h=plot(CNosim,averageCn0,CNosim,CNosim);
-    legend('Estimated CN0','True CN0')
+    legend('Estimated CN0','True CN0', fontsize=16)
     grid
     set(h,'Linewidth',2)
 end
